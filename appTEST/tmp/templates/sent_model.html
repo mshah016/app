@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css' ) }}">
+    </head>
+    <body>
+
+        <div class="jumbotron text-center">
+            <h1>Sentiment Analysis Model</h1>
+            <p>Enter some text in the box and hit "Run Model!" to get the sentiment!</p> 
+        </div>
+
+        <div class='container'>
+            <div class='col-md-5'></div>
+            <div class='col-md-6'>
+                <div class='row'>
+                    <h1>Enter Text:</h1>
+                    <form action='input', method="POST">
+                        <input type='text', name='text', id='text' /><br><br>
+                        <input type="submit" value="Run Model!" />
+                    </form>
+                    <p></p>
+                    <p>{{ inputText }}</p>
+                    <h4 id="pred">{{ prediction }}</h4>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script src="" async defer></script>
+    </body>
+</html>

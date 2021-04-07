@@ -1,0 +1,55 @@
+#@app.route('/input', methods=['POST'])
+#def inputString():
+#    inputText = request.form['text']
+#    print(inputText)
+#    prediction = p.inputPrediction(inputText)
+#    print(prediction)
+#    obj = {
+#        "text": inputText, 
+#        "sentiment": prediction
+#        }
+
+#     #POST request
+#    if request.method == 'POST':
+#        print("Incoming...")
+#        print(request.get_json())  # parse as JSON
+#        return jsonify(obj)
+
+#    # GET request
+#    else:
+#        print(obj)
+#        return jsonify(obj)   # serialize and use JSON headers
+
+#    #return jsonify(obj)
+
+
+
+
+
+
+
+
+
+
+@app.route('/input', methods=['POST', 'GET'])
+def inputString():
+
+     #POST request
+    obj = {}
+    if request.method == 'POST':
+        print("Incoming...")
+        inputText = request.form
+        print("User Input Text: ")
+        print(inputText)
+        prediction = p.inputPrediction(inputText)
+
+        obj["text"] = inputText
+        obj["sentiment"] = prediction
+
+        print(jsonify(obj))
+        return jsonify(obj)
+
+    # GET request
+    else:
+        print(jsonify(obj))
+        return jsonify(obj)   # serialize and use JSON headers

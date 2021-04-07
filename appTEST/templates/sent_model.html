@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css' ) }}">
+    </head>
+    <body>
+
+        <div class="jumbotron text-center">
+            <h2>Sentiment Analysis Model</h2>
+            <p>Enter some text in the box and hit "Run Model!" to get the sentiment!</p> 
+        </div>
+
+        <div class='container'>
+            <div class='row'></div>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <h4>Enter Text:</h4>
+                    <form action='input' , method="POST">
+                        <textarea rows="5" cols="60" name="text" id ="user_input" placeholder="Enter text"></textarea>
+                        <input type="submit" value="Run Model!"  />
+                        <p id="test">replace this</p>
+                    </form>
+                    <!--<p>{{ inputText }}</p>
+                    <h4 id="pred">{{ prediction }}</h4>-->
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            fetch('/hello', {
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                method: 'POST',
+                body: document.getElementById("text").value
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                console.log('POST response: ');
+                console.log(text);
+            });
+        </script>
+
+
+
+        <!--<script>
+            fetch('/hello', {
+
+                // Declare what type of data we're sending
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                // Specify the method
+                method: 'POST',
+
+                // A JSON payload
+                body: JSON.stringify({
+                    "greeting": "Hello from the browser!"
+                })
+            }).then(function (response) { // At this point, Flask has printed our JSON
+                return response.text();
+            }).then(function (text) {
+
+                console.log('POST response: ');
+
+                // Should be 'OK' if everything was successful
+                console.log(text);
+            });
+        </script>-->
+        
+        
+       
+    </body>
+</html>
