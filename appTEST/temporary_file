@@ -29,6 +29,26 @@
 
 
 
+#@app.route('/input', methods=['GET'])
+#def inputString():
+
+#     #POST request
+#    if request.method == 'POST':
+#        print("Incoming...")
+#        print(request)
+#        #inputText = request
+#        #print("User Input Text: ")
+#        #print(inputText)
+#    else:
+#        print("this is a get request")
+
+
+
+
+
+
+
+
 
 
 @app.route('/input', methods=['POST', 'GET'])
