@@ -14,12 +14,12 @@ def input():
     data = request.get_json()
     print(data['content'])
     inputText = data['content']
-    prediction = p.inputPrediction(inputText)
-    print(prediction)
+    prediction, confidence = p.inputPrediction(inputText)
+    print(prediction, confidence)
     obj = {
         "text": inputText,
         "sentiment": prediction,
-        "score": 1.0
+        "score": confidence
     }
     print(obj)
     return jsonify(obj)

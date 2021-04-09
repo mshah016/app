@@ -18,6 +18,7 @@ def inputPrediction(inputText):
     # import tokenizer from previous model.py
     _, tokenizer = m.Tokenization()
     pred = ''
+    confidence = 0.0
     inputList = [inputText]
     for i in range(0, len(inputList)):
         max_length = 100
@@ -28,12 +29,14 @@ def inputPrediction(inputText):
         if (output[i][0] <= 0.5):
             print(output[i])
             pred = 'negative'
+            confidence += output[i][0] 
         else:
             print(output[i])
             pred = 'positive'
+            confidence += output[i][0]
 
         print('Review: ' + inputList[i] + '\n' + 'Sentiment: ' + pred + ' ' + str(output[i][0]) + '\n' + '\n')
-    return pred
+    return pred, confidence 
 
 sample =  "happy good wonderful"
 
