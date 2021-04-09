@@ -16,23 +16,24 @@
             <p>Enter some text in the box and hit "Run Model!" to get the sentiment!</p> 
         </div>
 
+
+
+
         <div class='container'>
             <div class='row'></div>
             <div class='row'>
                 <div class='col-md-6'>
                     <h4>Enter Text:</h4>
                     <textarea rows="5" cols="60" name="text" id="user_input" placeholder="Enter text"></textarea>
-                    <button id="button" onclick="changeText()">click here</button>
-                    <p id="replace">enter text</p>
-                    <!--<form action='hello' , method="GET">
-                        <textarea rows="5" cols="60" name="text" id="user_input" placeholder="Enter text"></textarea>
-                        <input type="submit" value="Run Model!" />
-                    </form>-->
-                    <!--<p>{{ inputText }}</p>
-                    <h4 id="pred">{{ prediction }}</h4>-->
+                    <input id="submit-button" type="submit" value="Run Model!" />
+
+                    <p id="inputted-text" placeholder="Inputted Text"></p>
+                    <h4 id="prediction" placeholder="Sentiment Prediction"></h4>
                 </div>
             </div>
         </div>
+
+
 
         <script>
             document.onreadystatechange = function () {
@@ -40,44 +41,48 @@
                     case "loading":
                         break;
                     case "interactive":
-                        var button = document.getElementById("button");
-                        var textarea = document.getElementById("text");
-                        button.onclick = function () {
-                            console.log(textarea.value);
-                        };
+                        var textarea = document.getElementById("user_input");
+                        var submit = document.getElementById("submit-button");
+                        submit.onclick = sendToServer;
                         break;
                     case "complete":
                         break;
                 }
             };
+        </script>
 
-            function changeText() {
-                var x = document.getElementById("text").value;
-                document.getElementById("text").innerHTML = x
-                var data = document.getElementById("text").value;
-                console.log(data)
-                //var data_obj = { "text": data }
-                //console.log(data_obj)
-                //console.log(typeof (data_obj))
+
+        <script>
+            function sendToServer() {
+                var textarea = document.getElementById("user_input").value;
+                var data = { "content": textarea };
+                var str_json = JSON.stringify(data)
+
+                var xhr = new XMLHttpRequest;
+                xhr.responseType = "json";
+
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status >= 200 & this.status < 300) {
+                            console.log("Success!");
+                            console.log("Response: ", xhr.response);
+                            document.getElementById("inputted-text").innerHTML = xhr.response['text']
+                            document.getElementById("prediction").innerHTML = xhr.response['sentiment']
+                        } else {
+                            console.log("Fail!");
+                            console.log("Response: ", xhr.response);
+                        }
+                    }
+                };
+
+                xhr.open("POST", '/input', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(str_json);
             }
         </script>
 
-        <!--<script>
-            fetch('/hello', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: data_obj
-            }).then(function (response) {
-                return response.text();
-            }).then(function (text) {
-                console.log('POST response: ');
-                console.log(text);
-            });
-        </script>-->
-        
-        
+
+
        
     </body>
 </html>
